@@ -20,13 +20,13 @@ load_dotenv()
 # Settings > Environment variables / Application settings.
 # No subas llaves reales a GitHub.
 # =============================================================
-APP_USER = os.getenv("APP_USER", "Apellido Nombre")
-MONGO_URI = os.getenv("MONGO_URI", "")
+APP_USER = os.getenv("APP_USER", "Minchola Sebastian")
+MONGO_URI = os.getenv("MONGO_URI", "mongodb+srv://sebasm_db_user:Moxx6666@cluster-sebasm.izy2wyg.mongodb.net/")
 MONGODB_DB = os.getenv("MONGODB_DB", "hpc_pdf_analytics")
 MONGODB_COLLECTION = os.getenv("MONGODB_COLLECTION", "pdf_chunks")
 MONGO_VECTOR_INDEX = os.getenv("MONGO_VECTOR_INDEX", "vector_index")
-COHERE_API_KEY = os.getenv("COHERE_API_KEY", "")
-GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
+COHERE_API_KEY = os.getenv("COHERE_API_KEY", "jB2tJGmUBK9hhQ83T83r3ZUgLitaGrEQBeFeJKlK")
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "AQ.Ab8RN6Ix_CKpdWEuIY9S3-ayAIBoKtZ5oDRWcqfqsQPnVKSLqw")
 COHERE_MODEL = os.getenv("COHERE_MODEL", "embed-multilingual-v3.0")
 GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-1.5-flash")
 
