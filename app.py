@@ -10,7 +10,7 @@ from pypdf import PdfReader
 from pymongo import MongoClient
 from pymongo.collection import Collection
 import cohere
-import google.generativeai as genai
+import requests
 
 load_dotenv()
 
@@ -218,8 +218,8 @@ def vector_search(collection: Collection, question: str, top_k: int = 5) -> Tupl
 
 
 def generate_answer(question: str, contexts: List[Dict[str, Any]]) -> str:
-    configure_gemini()
-    model = genai.GenerativeModel(GEMINI_MODEL)
+    if not GEMINI_API_KEY:
+        raise RuntimeError("Falta configurar GEMINI_API_KEY")
 
     context_text = "\n\n".join(
         [
@@ -240,8 +240,37 @@ Pregunta del usuario:
 
 Respuesta:
 """
-    response = model.generate_content(prompt)
-    return getattr(response, "text", "No se pudo generar una respuesta.")
+
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_MODEL}:generateContent"
+
+    headers = {
+        "Content-Type": "application/json",
+        "x-goog-api-key": GEMINI_API_KEY,
+    }
+
+    payload = {
+        "contents": [
+            {
+                "parts": [
+                    {
+                        "text": prompt
+                    }
+                ]
+            }
+        ]
+    }
+
+    response = requests.post(url, headers=headers, json=payload, timeout=60)
+
+    if response.status_code != 200:
+        raise RuntimeError(f"Error Gemini {response.status_code}: {response.text}")
+
+    data = response.json()
+
+    try:
+        return data["candidates"][0]["content"]["parts"][0]["text"]
+    except Exception:
+        return "Gemini respondió, pero no se pudo interpretar el formato de la respuesta."
 
 
 # =============================================================
