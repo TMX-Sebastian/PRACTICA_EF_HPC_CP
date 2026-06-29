@@ -277,7 +277,7 @@ Respuesta:
 # Interfaz Streamlit
 # =============================================================
 st.title("📄 Plataforma Cloud-Native de Búsqueda Semántica en PDFs")
-st.caption("Streamlit + Docker + Azure Web App for Container + MongoDB Atlas + Cohere + Gemini")
+st.caption("Streamlit + Docker + Azure Web App for Container + MongoDB Atlas + Cohere + Gemini + DEPLOY YAMAL")
 
 with st.sidebar:
     st.header("Configuración")
